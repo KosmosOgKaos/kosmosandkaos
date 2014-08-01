@@ -10,13 +10,14 @@
 	<template id="template-list">
 		<li>
 			<figure>
-				<img src="" />
 				<figcaption>
 					<h1></h1>
 					<p></p>
 				</figcaption>
 			</figure>
-			<article></article>
+			<article>
+				<h2></h2>
+			</article>
 		</li>
 	</template>
 
@@ -47,9 +48,17 @@
 			data.forEach(function(item,index){
 				var template = templateElement.content.cloneNode(true);
 
+					template.querySelector('figure').style.backgroundImage = 'url('+item.poster+')';
+					template.querySelector('figure').addEventListener('click',function(event){
+						this.classList.add('active');
+					}.bind(template.querySelector('li')),false);
 					template.querySelector('h1').innerText = item.client.name;
-					template.querySelector('p').innerText = item.description;
-					template.querySelector('img').setAttribute('src',item.poster);
+					template.querySelector('p').innerText = item.caption;
+					template.querySelector('h2').innerText = item.description;
+					template.querySelector('article').style.backgroundImage  = 'url('+item.poster+')';
+					template.querySelector('article').addEventListener('webkitTransitionEnd',function(){
+						console.log(this.classList.add('end'));
+					}.bind(template.querySelector('li')),false);
 
 				projectList.appendChild(template);
 			});
@@ -57,5 +66,7 @@
 		},false);
 	</script>
 
-	<ul id="project-list"></ul>
+		<h1>Recent Work</h1>
+		<h2>becomes reality... or something equally smart sounding</h2>
+		<ul id="project-list"></ul>
 {% endblock %}
