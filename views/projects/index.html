@@ -1,0 +1,61 @@
+{% extends '../layout.html' %}
+
+{% block title %}My Page{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+
+	<template id="template-list">
+		<li>
+			<figure>
+				<img src="" />
+				<figcaption>
+					<h1></h1>
+					<p></p>
+				</figcaption>
+			</figure>
+			<article></article>
+		</li>
+	</template>
+
+	<script>
+		var data = [{
+			title: 'Some Title',
+			description: 'My Description',
+			poster: 'http://img.visir.is/fronthtml/images/2014/08/01/c=326,563,2749,1211;w=649;h=286;64581.jpg',
+			caption: 'A truly special world deserves a truly special design',
+			client:{
+				name: 'Blue Lagoon',
+				url: 'http://bluelagoon.com'
+			}
+		},{
+			title: 'Another Title',
+			description: 'Another Description',
+			poster: 'http://img.visir.is/fronthtml/images/2014/08/01/c=109,144,779,467;w=422;h=253;64580.jpg',
+			caption: 'We got people talking with...',
+			client:{
+				name: 'Vodafone',
+				url: 'http://vodafone.com'
+			}
+		}];
+
+		document.addEventListener('DOMContentLoaded',function(){
+			var projectList = document.getElementById('project-list');
+			var templateElement = document.getElementById('template-list');
+			data.forEach(function(item,index){
+				var template = templateElement.content.cloneNode(true);
+
+					template.querySelector('h1').innerText = item.client.name;
+					template.querySelector('p').innerText = item.description;
+					template.querySelector('img').setAttribute('src',item.poster);
+
+				projectList.appendChild(template);
+			});
+
+		},false);
+	</script>
+
+	<ul id="project-list"></ul>
+{% endblock %}
